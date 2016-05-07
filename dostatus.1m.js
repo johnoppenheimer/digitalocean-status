@@ -12,8 +12,6 @@ var request = require('request');
 var async = require('async');
 
 const APIKeys = [
-    '6c908b9a1725e9bef2d59b7e246347d57a7319a19e9e168bc4ccb3bb575ab676',
-    'f316e52ccceb66408be7c8647fcce825f2f3a076fd7b1af7c0f28aec60a9ba2b'
 ];
 
 const FONT = 'UbuntuMono-Regular';
@@ -26,7 +24,7 @@ const COLOR_BLUE = '#0000FF';
 const COLOR_WHITE = '#FFFFFF';
 
 var arrayBitbar = [{
-        text: '❤',
+        text: '☁︎',
         color: bitbar.darkMode ? 'white' : 'red',
         dropdown: false
     }
