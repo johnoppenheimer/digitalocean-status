@@ -9,3 +9,15 @@ npm install async request bitbar --save
 ```
 
 Then add the plugin in BitBar
+
+### Adding API Keys
+Just get your digitalocean token [https://cloud.digitalocean.com/settings/api/tokens](https://cloud.digitalocean.com/settings/api/tokens).
+
+No write rights needed. Then add your key here:
+```javascript
+const APIKeys = [
+    '<yourToken>'
+];
+```
+
+You can add key from different accounts, that's the use case.
