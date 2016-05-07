@@ -77,7 +77,7 @@ else{
 
                         //Region and price
                         droplets.push({
-                            text: droplet.region.slug,
+                            text: droplet.region.slug + ' ' + droplet.size.price_monthly + '€',
                             color: COLOR_GREY,
                             font: FONT
                         });
