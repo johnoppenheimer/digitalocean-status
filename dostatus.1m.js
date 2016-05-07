@@ -30,75 +30,85 @@ var arrayBitbar = [{
     }
 ];
 
-async.mapSeries(APIKeys,
-    function(key, callback) {
-        request.get('https://api.digitalocean.com/v2/droplets', {
-            headers: {
-                'Authorization': ' Bearer ' + key
-            }
-        }, function(err, response, body) {
-            var json = JSON.parse(body);
-            if (!err) {
-                var droplets = [];
-                for (var i = 0; i < json.droplets.length; i++) {
-                    // Below, add whatever data you want from the request
-                    var droplet = json.droplets[i];
-                    droplets.push(bitbar.sep);
-                    //Name of droplets
-                    droplets.push({
-                        text: droplet.locked ? '🔒' : '' + droplet.name,
-                        color: colorByStatus(droplet.status),
-                        font: FONT,
-                        href: 'https://cloud.digitalocean.com/droplets/' + droplet.id + '/graphs'
-                    });
-
-                    //IP Address
-                    droplets.push({
-                        text: droplet.networks.v4[0].ip_address,
-                        color: COLOR_GREY,
-                        font: FONT
-                    });
-
-                    //Memory + SSD
-                    droplets.push({
-                        text: droplet.size.memory + 'MB ' + droplet.size.disk + 'GB',
-                        color: COLOR_GREY,
-                        font: FONT
-                    });
-
-                    //Region and price
-                    droplets.push({
-                        text: droplet.region.slug,
-                        color: COLOR_GREY,
-                        font: FONT
-                    });
+if (APIKeys.length === 0){
+    arrayBitbar.push({
+        text: 'No APIKeys',
+        color: COLOR_RED,
+        font: FONT
+    });
+    bitbar(arrayBitbar);
+}
+else{
+    async.mapSeries(APIKeys,
+        function(key, callback) {
+            request.get('https://api.digitalocean.com/v2/droplets', {
+                headers: {
+                    'Authorization': ' Bearer ' + key
                 }
-                callback(null, droplets);
-            } else {
-                callback(err);
-            }
+            }, function(err, response, body) {
+                var json = JSON.parse(body);
+                if (!err) {
+                    var droplets = [];
+                    for (var i = 0; i < json.droplets.length; i++) {
+                        // Below, add whatever data you want from the request
+                        var droplet = json.droplets[i];
+                        droplets.push(bitbar.sep);
+                        //Name of droplets
+                        droplets.push({
+                            text: droplet.locked ? '🔒' : '' + droplet.name,
+                            color: colorByStatus(droplet.status),
+                            font: FONT,
+                            href: 'https://cloud.digitalocean.com/droplets/' + droplet.id + '/graphs'
+                        });
 
-        });
-    },
-    function(err, results) {
-        if (!err) {
-            for (var i = 0; i < results.length; i++) {
-                var droplets = results[i];
-                for (var j = 0; j < droplets.length; j++) {
-                    arrayBitbar.push(droplets[j]);
+                        //IP Address
+                        droplets.push({
+                            text: droplet.networks.v4[0].ip_address,
+                            color: COLOR_GREY,
+                            font: FONT
+                        });
+
+                        //Memory + SSD
+                        droplets.push({
+                            text: droplet.size.memory + 'MB ' + droplet.size.disk + 'GB',
+                            color: COLOR_GREY,
+                            font: FONT
+                        });
+
+                        //Region and price
+                        droplets.push({
+                            text: droplet.region.slug,
+                            color: COLOR_GREY,
+                            font: FONT
+                        });
+                    }
+                    callback(null, droplets);
+                } else {
+                    callback(err);
                 }
-            }
-        } else {
-            arrayBitbar.push({
-                text: err,
-                color: COLOR_RED,
-                font: FONT
+
             });
-        }
+        },
+        function(err, results) {
+            if (!err) {
+                for (var i = 0; i < results.length; i++) {
+                    var droplets = results[i];
+                    for (var j = 0; j < droplets.length; j++) {
+                        arrayBitbar.push(droplets[j]);
+                    }
+                }
+            } else {
+                arrayBitbar.push({
+                    text: err,
+                    color: COLOR_RED,
+                    font: FONT
+                });
+            }
 
-        bitbar(arrayBitbar);
-    }
-);
+            bitbar(arrayBitbar);
+        }
+    );
+}
 
 function colorByStatus(status) {
     switch (status) {
