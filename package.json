@@ -1,0 +1,24 @@
+{
+  "name": "digitalocean-status",
+  "version": "1.0.0",
+  "description": "Plugin that check the status of your digital ocean droplets",
+  "main": "dostatus.1m.js",
+  "dependencies": {
+    "async": "^2.0.0-rc.4",
+    "bitbar": "^0.2.1",
+    "request": "^2.72.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "gitlab@git.036.ninja:oppenheimer/digitalocean-status.git"
+  },
+  "keywords": [
+    "bitbar"
+  ],
+  "author": "Maxime <oppenheimer>",
+  "license": "MIT"
+}
