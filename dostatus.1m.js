@@ -10,9 +10,9 @@
 var bitbar = require('bitbar');
 var request = require('request');
 var async = require('async');
+var config = require('./config');
 
-const APIKeys = [
-];
+const APIKeys = config.tokens;
 
 const FONT = 'UbuntuMono-Regular';
 
