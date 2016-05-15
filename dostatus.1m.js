@@ -46,8 +46,8 @@ else{
                     'Authorization': ' Bearer ' + key
                 }
             }, function(err, response, body) {
-                var json = JSON.parse(body);
-                if (!err) {
+                if (!err && body !== undefined) {
+                    var json = JSON.parse(body);
                     var droplets = [];
                     for (var i = 0; i < json.droplets.length; i++) {
                         // Below, add whatever data you want from the request
@@ -86,7 +86,6 @@ else{
                 } else {
                     callback(err);
                 }
-
             });
         },
         function(err, results) {
