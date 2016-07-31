@@ -3,7 +3,7 @@
 
 ### Install the plugins
 ```
-git clone https://git.036.ninja/oppenheimer/digitalocean-status
+git clone https://github.com/johnoppenheimer/digitalocean-status.git
 cd digitalocean-status
 npm install
 ```
